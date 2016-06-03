@@ -59,7 +59,6 @@ class AnalogAndDigital extends React.Component {
           break
         }
       }
-      console.log(possibleValues);
       samples.push({
         x: data.x, y
       })
