@@ -5,10 +5,9 @@ import Slider from 'mui/Slider'
 import Divider from 'mui/Divider'
 import SelectField from 'mui/SelectField';
 import MenuItem from 'mui/MenuItem';
-
 import { VictoryChart, VictoryLine, VictoryScatter, VictoryLabel, VictoryAxis } from 'victory'
-
 import Title from 'comp/Title'
+import Ul from 'comp/Ul'
 
 class AnalogAndDigital extends React.Component {
 
@@ -48,14 +47,10 @@ class AnalogAndDigital extends React.Component {
     for (var i = 0; i < numberSamples; i++) {
       const data = { x: i * T }
       let y = signalFormula(data)
-      // Round y to nearest possible value
+      // Set y to average value
       for (let j = 1; j < possibleValues.length; j++) {
         if (y <= possibleValues[j] && y >= possibleValues[j - 1]) {
-          if (Math.abs(y - possibleValues[j]) < Math.abs(y - possibleValues[j - 1])) {
-            y = possibleValues[j]
-          } else {
-            y = possibleValues[j - 1]
-          }
+          y = 0.5 * (possibleValues[j] + possibleValues[j - 1])
           break
         }
       }
@@ -84,7 +79,7 @@ class AnalogAndDigital extends React.Component {
   render() {
 
     const { signalFormula, frequency, bitsPerSample, samples, sampleTickValues, interpolation } = this.state
-    const bitOptions = [2, 3, 4, 5]
+    const bitOptions = [2, 3, 4, 5, 6]
     const interpolationOptions = ['natural', 'linear', 'cardinal', 'step']
 
     return (
@@ -96,18 +91,17 @@ class AnalogAndDigital extends React.Component {
 
         <Block layout>
           <Block style={{ marginRight: 20 }}>
-            <p>Frequência de Amostragem</p>
-            <p>f = {frequency} Hz</p>
-            <p>T = {(1 / frequency).toFixed(3)} s </p>
+            <p><Ul>Frequência de Amostragem</Ul></p>
+            <p>f = {frequency} Hz (T = {(1 / frequency).toFixed(4)} s) </p>
             <Slider
               value={frequency}
               min={1}
-              max={10}
+              max={20}
               onChange={this.updateFrequency.bind(this)} />
           </Block>
 
           <Block>
-            <p>Número de Bits por Amostra</p>
+            <p><Ul>Número de Bits por Amostra</Ul></p>
             <SelectField maxHeight={300} value={bitsPerSample} onChange={this.updateBitsPerSample.bind(this)}>
               {bitOptions.map((numBits) => {
                 return <MenuItem key={numBits} value={numBits} primaryText={`${numBits} bits`} />
@@ -146,26 +140,26 @@ class AnalogAndDigital extends React.Component {
             </Block>
 
             <Block>
-              <p>Amostras (em 1 segundo)</p>
+              <p><Ul>Amostras (em 1 segundo)</Ul></p>
               <ul>
                 {samples.map((sample) => <li>{`(${sample.x.toFixed(2)}, ${sample.y})`}</li>)}
               </ul>
 
-              <p>Estimativa de Tamanho</p>
+              <p><Ul>Estimativa de Tamanho</Ul></p>
               <span>
-                {bitsPerSample * samples.length} bits
+                {bitsPerSample * samples.length} bits ou {bitsPerSample * samples.length / 8} bytes
               </span>
 
             </Block>
 
           </Block>
 
-          <Divider />
+          <Divider style={{ marginTop: 20, marginBottom: 20 }} />
 
           <Block layout>
 
             <Block style={{ width: 500 }}>
-              <p>Sinal Analógico Reconstruído</p>
+              <p><Ul>Sinal Analógico Reconstruído</Ul></p>
 
               <VictoryChart>
 
