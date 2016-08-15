@@ -9,7 +9,7 @@ import { VictoryChart, VictoryLine, VictoryScatter, VictoryLabel, VictoryAxis } 
 import Title from 'comp/Title'
 import Ul from 'comp/Ul'
 
-class AnalogAndDigital extends React.Component {
+class AnalogAndDigitalContainer extends React.Component {
 
   constructor(props) {
     super(props)
@@ -190,4 +190,4 @@ class AnalogAndDigital extends React.Component {
     }
   }
 
-  export default AnalogAndDigital
+  export default AnalogAndDigitalContainer

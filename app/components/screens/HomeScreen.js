@@ -15,6 +15,11 @@ class HomeScreen extends React.Component {
 
         <p>Então sejam bem-vindos! Cliquem nas coisas ao lado esquerdo e divirtam-se.</p>
 
+        <small>
+          Interessado em expandir esse projeto ou usar para fins próprios (não-maléficos)?
+          <br /><a href="https://github.com/rpedroni/Digital-Playground">Veja o repositório aqui</a>
+        </small>
+
       </div>
     )
   }

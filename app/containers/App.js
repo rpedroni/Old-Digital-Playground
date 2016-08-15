@@ -11,10 +11,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       menuItems: [
+        { title: 'Home', url: '/' },
         { title: 'Analógico & Digital', url: 'ad' },
-        { title: 'Bits & Bytes', url: 'bits-bytes' },
-        { title: 'Álgebra Booleana', url: 'ad' },
-        { title: 'Portas Lógicas', url: 'ad' },
+        { title: 'Sistemas Numéricos', url: 'numericos' },
+        // { title: 'Bits & Bytes', url: 'bits-bytes' },
+        // { title: 'Álgebra Booleana', url: 'ad' },
+        // { title: 'Portas Lógicas', url: 'ad' },
       ]
     }
     this.routeToUrl = this.routeToUrl.bind(this)

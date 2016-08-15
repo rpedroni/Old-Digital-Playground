@@ -7,9 +7,6 @@ class BitsAndBytesScreen extends React.Component {
     return (
      <div>
        <Title>Bits & Bytes</Title>
-
-       
-
      </div>
     )
   }
