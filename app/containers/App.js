@@ -1,14 +1,9 @@
-import React from 'react'
-import Drawer from 'mui/Drawer'
+import React, { PropTypes } from 'react'
+
+import Sidebar from 'comp/Sidebar'
 import AppBar from 'mui/AppBar'
-import Menu from 'mui/Menu'
-import MenuItem from 'mui/MenuItem'
-import { Link, withRouter } from 'react-router'
 
-// Include css
-require('style/app.scss')
-
-const DRAWER_WIDTH = 200
+const DRAWER_WIDTH = 210
 
 class App extends React.Component {
 
@@ -16,45 +11,34 @@ class App extends React.Component {
     super(props)
     this.state = {
       menuItems: [
-        { title: 'Analógico & Digital', to: 'ad' },
-        { title: 'Bits & Bytes', to: 'bytes' },
-        { title: 'Álgebra Booleana', to: 'ad' },
-        { title: 'Portas Lógicas', to: 'ad' },
+        { title: 'Analógico & Digital', url: 'ad' },
+        { title: 'Bits & Bytes', url: 'bits-bytes' },
+        { title: 'Álgebra Booleana', url: 'ad' },
+        { title: 'Portas Lógicas', url: 'ad' },
       ]
     }
+    this.routeToUrl = this.routeToUrl.bind(this)
+  }
+
+  routeToUrl(item) {
+    this.context.router.push(item.url)
   }
 
   render() {
 
-    const { router } = this.props
+    const { menuItems } = this.state
 
     return (
       <div>
 
-        <Drawer open={true} width={DRAWER_WIDTH}>
+        <Sidebar
+          width={DRAWER_WIDTH}
+          menuItems={menuItems}
+          onMenuItemSelect={this.routeToUrl} />
 
-          <AppBar
-            title="Playground Digital"
-            showMenuIconButton={false}
-            titleStyle={{ fontSize: 16 }} />
-
-
-          {this.state.menuItems.map((menuItem, index) => {
-              return (
-                <MenuItem onClick={() => { router.push(menuItem.to) }}
-                  key={index}
-                  >
-                  {menuItem.title}
-                </MenuItem>
-              )
-            })}
-
-
-        </Drawer>
-
-        <div style={{ marginLeft: DRAWER_WIDTH }}>
+        <div style={{ marginLeft: DRAWER_WIDTH, padding: 0 }}>
           <AppBar showMenuIconButton={false} />
-          <div className="content">
+          <div style={{ padding: 20 }}>
             {this.props.children}
           </div>
         </div>
@@ -64,4 +48,12 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App)
+App.contextTypes = {
+  router: PropTypes.object.isRequired,
+}
+
+App.propTypes = {
+  children: PropTypes.any.isRequired,
+}
+
+export default App

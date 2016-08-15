@@ -35,10 +35,11 @@ module.exports = {
   ],
   resolve: {
     alias: {
+      config: path.resolve(APP_PATH, 'config'),
       cont: path.resolve(APP_PATH, 'containers'),
       comp: path.resolve(APP_PATH, 'components'),
+      screens: path.resolve(APP_PATH, 'components/screens'),
       actions: path.resolve(APP_PATH, 'actions'),
-      style: path.resolve(PUBLIC_PATH, 'style'),
       mui: path.resolve('node_modules/material-ui'),
     }
   },
